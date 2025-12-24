@@ -1,79 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>A Christmas Gift for Eia-Chan 🎄💗</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Handwritten cute font -->
+  <!-- Cute handwritten font -->
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background: #ffeef8;
-      overflow: hidden;
-      font-family: "Caveat", cursive;
-      font-size: 26px;
-      user-select: none;
+    :root {
+      --pink-main: #ff66b7;
+      --pink-dark: #ff2ea6;
+      --pink-soft: #ffeef8;
+      --border-pink: #ff7dcf;
     }
 
-    /* Pink ribbon border */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--pink-soft);
+      font-family: "Caveat", cursive;
+      font-size: 26px;
+      overflow: hidden;
+      user-select: none;
+      color: var(--pink-main);
+    }
+
+    /* Ribbon border */
     body::before {
       content: "";
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      border: 12px solid #ff7dcf;
-      box-sizing: border-box;
-      pointer-events: none;
+      inset: 0;
+      border: 12px solid var(--border-pink);
       border-radius: 25px;
+      pointer-events: none;
       box-shadow: 0 0 25px #ffb5e9 inset;
+      z-index: 999;
     }
 
     .page {
       display: none;
-      justify-content: center;
-      align-items: center;
       height: 100vh;
       width: 100vw;
-      flex-direction: column;
+      padding: 24px;
       text-align: center;
-      padding: 20px;
-      color: #ff66b7;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       position: relative;
     }
 
-    .active {
+    .page.active {
       display: flex;
       animation: fadeIn 0.5s ease forwards;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to   { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; transform: translateY(25px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Handwritten text animation */
+    /* Typing animation */
     .typer span {
       opacity: 0;
-      animation: letterFade 0.05s forwards;
+      animation: letterFade 0.06s forwards;
     }
 
     @keyframes letterFade {
-      from { opacity: 0; }
-      to   { opacity: 1; }
+      to { opacity: 1; }
     }
 
-    .highlight {
-      color: #ff2ea6;
-      font-weight: 600;
-    }
-
-    /* Tree glow */
     .tree {
       font-size: 55px;
       margin-top: 10px;
@@ -82,7 +82,7 @@
 
     @keyframes glow {
       from { text-shadow: 0 0 8px #ff99d8; }
-      to   { text-shadow: 0 0 20px #ff66c8; }
+      to { text-shadow: 0 0 22px #ff66c8; }
     }
 
     .flowers {
@@ -92,217 +92,206 @@
     }
 
     @keyframes float {
-      0%   { transform: translateY(0); }
-      50%  { transform: translateY(-10px); }
-      100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
     }
 
-    /* Sparkles around Kitty */
+    /* Sparkles */
     .sparkle-container {
       position: relative;
       display: inline-block;
+      margin-top: 20px;
     }
+
     .sparkle {
       position: absolute;
       font-size: 20px;
+      animation: sparkle 1.5s infinite;
       color: #ffb3e6;
-      animation: sparkle 1.5s infinite ease-in-out;
     }
+
     @keyframes sparkle {
       0% { opacity: 0; transform: scale(0.5); }
       50% { opacity: 1; transform: scale(1.2); }
       100% { opacity: 0; transform: scale(0.5); }
     }
 
-    /* Snowflakes */
+    /* Snow */
     .snowflake {
       position: fixed;
-      top: -10px;
-      color: white;
-      font-size: 20px;
-      opacity: 0.9;
+      top: -20px;
       pointer-events: none;
-      animation: fall linear infinite;
-      z-index: 9999;
+      opacity: 0.9;
+      animation: fall linear forwards;
+      z-index: 998;
     }
 
     @keyframes fall {
-      from { transform: translateY(0); }
-      to   { transform: translateY(110vh); }
+      to { transform: translateY(120vh); }
     }
 
-    /* Flower particles */
+    /* Flower burst */
     .flower-burst {
       position: fixed;
-      color: #ff80c8;
-      font-size: 25px;
-      animation: riseFlower 2s ease-out forwards;
       pointer-events: none;
-    }
-    @keyframes riseFlower {
-      from { opacity: 1; transform: translateY(0) rotate(0deg); }
-      to   { opacity: 0; transform: translateY(-120px) rotate(360deg); }
+      animation: riseFlower 2s ease-out forwards;
     }
 
-    /* Animated trees on last page */
+    @keyframes riseFlower {
+      to {
+        opacity: 0;
+        transform: translateY(-120px) rotate(360deg);
+      }
+    }
+
+    /* Side trees */
     .side-tree {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
       font-size: 65px;
-      animation: sideGlow 2s infinite alternate;
+      animation: glow 2s infinite alternate;
     }
-    @keyframes sideGlow {
-      from { text-shadow: 0 0 10px #ff97d5; }
-      to   { text-shadow: 0 0 25px #ffaee6; }
-    }
+
     #leftTree { left: 15px; }
     #rightTree { right: 15px; }
 
-    /* Corner instructions */
+    /* Corner hint */
     .corner {
       position: absolute;
-      top: 20px;
+      top: 18px;
       font-size: 0.9rem;
-      color: #ff66b7;
       opacity: 0.7;
       font-weight: bold;
     }
+
     #leftCorner { left: 15px; }
     #rightCorner { right: 15px; }
 
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation: none !important;
+      }
+    }
   </style>
 </head>
 
 <body>
 
-<!-- INTRO SCREEN -->
+<!-- INTRO -->
 <div class="page active" id="intro">
-  <div class="typer" style="color:#ff4cab; font-size:2.3rem;"></div>
-  <div class="flowers" style="font-size:45px; margin-top:20px;">🌸 💮 🌷 🌺 🌼</div>
+  <div class="typer" style="font-size:2.3rem;color:#ff4cab;">
+    A little gift to you, by yours truly Joe 😸╰(*°▽°*)╯
+  </div>
+  <div class="flowers" style="font-size:45px;">🌸 💮 🌷 🌺 🌼</div>
   <div class="corner" id="leftCorner">tap left</div>
   <div class="corner" id="rightCorner">tap right</div>
 </div>
 
-<!-- MESSAGE PAGES -->
 <div class="page">
   <div class="typer">Hi Eia-Chan 💗☆*: .｡. o(≧▽≦)o .｡.:*☆💗</div>
   <div class="tree">🎄⭐🎁</div>
   <div class="flowers">🌸 🌺 🌼 🌷 💮</div>
 </div>
 
-<!-- NEW ADDED PAGE -->
 <div class="page">
   <div class="typer">
     I know you don’t really celebrate Christmas massively,
-    so I thought I might as well put some effort into something for you 💗
+    so I wanted to make something just for you 💗
   </div>
 </div>
 
 <div class="page"><div class="typer">I hope this Christmas brings you soft smiles & warm moments 🎀</div></div>
-<div class="page"><div class="typer">You deserve gentle days and people who really care 💗</div></div>
-<div class="page"><div class="typer">I'm really glad you exist, you brighten things more than you know ✨</div></div>
+<div class="page"><div class="typer">You deserve fun and happy days and people who truly care 💗</div></div>
+<div class="page"><div class="typer">I'm really glad i met you — you brighten things more than you know ✨</div></div>
 
-<!-- FINAL PAGE -->
 <div class="page">
   <div class="side-tree" id="leftTree">🎄</div>
   <div class="side-tree" id="rightTree">🎄</div>
 
-  <div class="typer" style="font-size:2.3rem; margin-bottom:10px;">Merry Christmas, Eia-Chan 🎄💞</div>
+  <div class="typer" style="font-size:2.3rem;">Merry Christmas, Eia-Chan 🎄💞</div>
   <div class="tree" style="font-size:60px;">🎄⭐🎁</div>
 
   <div class="sparkle-container">
-    <img src="kitty.png" style="width:180px; border-radius:15px; margin-top:20px;">
-    <div class="sparkle" style="top:-10px; left:-10px;">✨</div>
-    <div class="sparkle" style="top:-5px; right:-10px; animation-delay:0.4s;">✨</div>
-    <div class="sparkle" style="bottom:0; left:-15px; animation-delay:0.7s;">✨</div>
-    <div class="sparkle" style="bottom:5px; right:-15px; animation-delay:1s;">✨</div>
+    <img src="kitty.png" alt="Kitty" style="width:180px;border-radius:15px;">
+    <span class="sparkle" style="top:-10px;left:-10px;">✨</span>
+    <span class="sparkle" style="top:-5px;right:-10px;animation-delay:.4s;">✨</span>
+    <span class="sparkle" style="bottom:0;left:-15px;animation-delay:.7s;">✨</span>
+    <span class="sparkle" style="bottom:5px;right:-15px;animation-delay:1s;">✨</span>
   </div>
 
   <div class="flowers">🌸🌷🌼💮🌺</div>
 </div>
 
-<!-- MUSIC -->
 <audio id="music" src="music.mp3" preload="auto"></audio>
 
 <script>
-  /* Typing effect */
-  function typeText(element, speed=30) {
-    let text = element.innerText;
-    element.innerHTML = "";
-    for (let i = 0; i < text.length; i++) {
-      let span = document.createElement("span");
-      span.textContent = text[i];
-      span.style.animationDelay = (i*speed/500) + "s";
-      element.appendChild(span);
-    }
-  }
-
-  /* Intro message */
-  const introText = "A little gift to you, by yours truly Joe 😸╰(*°▽°*)╯";
-  const introTyper = document.querySelector("#intro .typer");
-  introTyper.innerText = introText;
-  typeText(introTyper, 30);
-
-  /* Pages */
-  let pages = document.querySelectorAll('.page');
+  const pages = [...document.querySelectorAll(".page")];
   let current = 0;
+  let musicStarted = false;
+
+  function typeText(el, speed = 30) {
+    const text = el.dataset.text || el.textContent;
+    el.dataset.text = text;
+    el.innerHTML = "";
+
+    [...text].forEach((char, i) => {
+      const span = document.createElement("span");
+      span.textContent = char;
+      span.style.animationDelay = `${i * speed}ms`;
+      el.appendChild(span);
+    });
+  }
 
   function showPage(index) {
-    if(index<0) index=0;
-    if(index>=pages.length) index=pages.length-1;
     pages[current].classList.remove("active");
-    current = index;
+    current = Math.max(0, Math.min(index, pages.length - 1));
     pages[current].classList.add("active");
 
-    let typer = pages[current].querySelector(".typer");
-    if(typer) typeText(typer);
+    const typer = pages[current].querySelector(".typer");
+    if (typer) typeText(typer);
   }
 
-  /* Tap navigation + first tap music start */
-  let musicStarted = false;
-  document.addEventListener("click", event => {
-    // Start music on first tap
-    if(!musicStarted){
-      const music = document.getElementById("music");
-      music.play().catch(()=> { console.log("Music play blocked"); });
+  document.addEventListener("click", e => {
+    if (!musicStarted) {
+      document.getElementById("music").play().catch(()=>{});
       musicStarted = true;
     }
 
-    let x = event.clientX;
-    if(x < window.innerWidth/2) showPage(current-1); // left half
-    else showPage(current+1); // right half
-
-    createFlowers(event.clientX, event.clientY);
+    showPage(e.clientX < innerWidth / 2 ? current - 1 : current + 1);
+    flowerBurst(e.clientX, e.clientY);
   });
 
-  /* Flower particles */
-  function createFlowers(x, y) {
-    for (let i=0;i<5;i++){
-      let f = document.createElement("div");
-      f.classList.add("flower-burst");
-      f.innerHTML="🌸";
-      f.style.left = (x+Math.random()*40-20)+"px";
-      f.style.top = (y+Math.random()*20-10)+"px";
-      f.style.fontSize=(20+Math.random()*10)+"px";
+  function flowerBurst(x, y) {
+    for (let i = 0; i < 5; i++) {
+      const f = document.createElement("div");
+      f.className = "flower-burst";
+      f.textContent = "🌸";
+      f.style.left = `${x + Math.random() * 40 - 20}px`;
+      f.style.top = `${y + Math.random() * 20 - 10}px`;
+      f.style.fontSize = `${20 + Math.random() * 10}px`;
       document.body.appendChild(f);
-      setTimeout(()=>f.remove(),2000);
+      setTimeout(() => f.remove(), 2000);
     }
   }
 
-  /* Snowflakes */
-  function createSnowflake() {
-    const snow = document.createElement("div");
-    snow.classList.add("snowflake");
-    snow.innerHTML = "❄";
-    snow.style.left = Math.random()*window.innerWidth + "px";
-    snow.style.fontSize = (15+Math.random()*20) + "px";
-    snow.style.animationDuration = (4 + Math.random()*4) + "s";
-    document.body.appendChild(snow);
-    setTimeout(()=>snow.remove(),8000);
+  function snowflake() {
+    const s = document.createElement("div");
+    s.className = "snowflake";
+    s.textContent = "❄";
+    s.style.left = `${Math.random() * innerWidth}px`;
+    s.style.fontSize = `${14 + Math.random() * 18}px`;
+    s.style.animationDuration = `${4 + Math.random() * 4}s`;
+    document.body.appendChild(s);
+    setTimeout(() => s.remove(), 8000);
   }
-  setInterval(createSnowflake,150);
 
+  setInterval(snowflake, 180);
+
+  // Initial typing
+  pages.forEach(p => {
+    const t = p.querySelector(".typer");
+    if (t) typeText(t);
+  });
 </script>
 
 </body>
